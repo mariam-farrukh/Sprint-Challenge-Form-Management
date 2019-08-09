@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Form, Field, withFormik } from 'formik';
 import * as Yup from "yup";
 
-const RegistrationForm = ({errors, touched, values, status }) => {
+function RegistrationForm ({errors, touched, values, status }) {
     const [meals, setMeals] = useState([]);
     useEffect(() => {
       if (status) {
@@ -69,3 +69,5 @@ const FormikRegistrationForm = withFormik({
 })(RegistrationForm);
 
 export default FormikRegistrationForm;
+
+export const subtract = (num1, num2) => num1 - num2;
