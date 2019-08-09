@@ -14,7 +14,6 @@ describe('<FormikRegistrationForm />', () => {
         fireEvent.click(buttonClick);
         getByText(/submit/i);
     });
-
     test("subtract function", () => {
         expect(subtract(2, 1)).toBe(1);
         expect(subtract(1, 7)).toEqual(-6);
