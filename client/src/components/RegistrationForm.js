@@ -4,12 +4,14 @@ import { Form, Field, withFormik } from 'formik';
 import * as Yup from "yup";
 
 function RegistrationForm ({errors, touched, values, status }) {
-    const [meals, setMeals] = useState([]);
+    const [users, setUsers] = useState([]);
+    console.log(users);
+
     useEffect(() => {
-      if (status) {
-        setMeals([...status]);
-      }
-    }, [status]);
+        if (status) {
+          setUsers([...users, status]);
+        }
+      }, [status]);
 
     return (
         <div className='container'>
@@ -27,15 +29,6 @@ function RegistrationForm ({errors, touched, values, status }) {
 
                     <button type="submit">Submit</button>
                 </Form>
-            </div>
-            <div className="meal-list">
-            <h1>Meals</h1>
-                {meals ? meals.map(meal => (
-                    <p key={Date.now() + Math.random(10000)} className="meals">
-                        Name : {meal.name} Course : {meal.course}
-                    </p>
-                ))
-                : null}
             </div>
         </div>
     );
@@ -57,13 +50,10 @@ const FormikRegistrationForm = withFormik({
     handleSubmit(values, { setStatus }) {
         axios
           .post('http://localhost:5000/api/register', values)
-          .then(res => {console.log(res.data)})
-          .catch(err => console.log(err.response));
-        axios
-          .get("http://localhost:5000/api/restricted/data")
           .then(res => {
-            setStatus(res.data);
-          })
+              console.log(res.data)
+              setStatus(res.data);
+            })
           .catch(err => console.log(err.response));
     }
 })(RegistrationForm);
