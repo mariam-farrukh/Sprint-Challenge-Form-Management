@@ -47,9 +47,16 @@ const FormikRegistrationForm = withFormik({
         password: Yup.string().min(5, "Password must be 5 characters or longer").required("Password is required"),
     }),
 
-    handleSubmit(values, { setStatus }) {
+    handleSubmit(values, { setStatus, resetForm }) {
         axios
           .post('http://localhost:5000/api/register', values)
+          .then(res => {
+            setStatus(res.data);
+            resetForm();
+          })
+          .catch(err => console.log(err.response));
+        axios
+          .get("http://localhost:5000/api/restricted/data")
           .then(res => {
             setStatus(res.data);
           })
