@@ -28,7 +28,7 @@ const RegistrationForm = ({errors, touched, values, status }) => {
                     <button type="submit">Submit</button>
                 </Form>
             </div>
-            <div className="meal">
+            <div className="meal-list">
             <h1>Meals</h1>
                 {meals ? meals.map(meal => (
                     <p key={Date.now() + Math.random(10000)} className="meals">
@@ -54,12 +54,9 @@ const FormikRegistrationForm = withFormik({
         password: Yup.string().min(5, "Password must be 5 characters or longer").required("Password is required"),
     }),
 
-    handleSubmit(values, { setStatus, resetForm }) {
+    handleSubmit(values, { setStatus }) {
         axios
-          .post('http://localhost:5000/api/register', {
-                username: values.username, 
-                passowrd: values.password
-            })
+          .post('http://localhost:5000/api/register', values)
           .then(res => {console.log(res.data)})
           .catch(err => console.log(err.response));
         axios
